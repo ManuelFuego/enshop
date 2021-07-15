@@ -1,0 +1,41 @@
+{% extends "eshop/baseshop.html" %}
+{% block content %}
+<form  action="" method="POST">
+  {% csrf_token %}
+    {{form.as_p}}
+  <button class="btn btn-success" type="submit">Подтвердить</button>
+</form>
+<br>
+<div class="show-clients">
+</div>
+
+
+<table class="table table-dark table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Имя  </th>
+      <th scope="col">Фамилия</th>
+      <th scope="col">Телефон</th>
+      <th scope="col">Адрес</th>
+      <th scope="col">Заказы </th>
+      <th scope="col">Изменить</th>
+      <th scope="col">Удалить</th>
+    </tr>
+  </thead>
+  <tbody>
+        {% for i in clients %}
+    <tr>
+      <td>{{i.first_name}}</td>
+      <td>{{i.last_name}}</td>
+      <td>{{i.phone}}</td>
+      <td>{{i.address}}</td>
+      <td>{{i.orders}}</td>
+      <td> <a href="{%url 'update_client' i.id %}" class="btn btn-success" type="submit">Изменить</a></td>
+      <td> <a href="{%url 'delete_client' i.id %}" class="btn btn-danger" type="submit">Удалить</a></td>
+    </tr>
+          {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
+

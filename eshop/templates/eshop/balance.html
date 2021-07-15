@@ -1,0 +1,42 @@
+{% extends "eshop/baseshop.html" %}
+
+        {% block content %}
+<form action="" method="get" xmlns="http://www.w3.org/1999/html">
+  <p style="float :left ;"> <h4>Фильтр стоимости </h4></p>
+         {{form.as_table}}
+        <button class="btn btn-dark" type="submit">Поиск</button>
+</form>
+  <br>
+<table class="table table-dark table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Категория </th>
+      <th scope="col">Название</th>
+      <th scope="col">Описание</th>
+      <th scope="col">Цена</th>
+      <th scope="col">Количество </th>
+      <th scope="col">Стоимость Покупки</th>
+      <th scope="col">Ссылка</th>
+      <th scope="col">Изменить</th>
+      <th scope="col">Удалить</th>
+
+    </tr>
+  </thead>
+  <tbody>
+        {% for i in info %}
+    <tr>
+      <td>{{i.category}}</td>
+      <td>{{i.name}}</td>
+      <td>{{i.description}}</td>
+      <td>{{i.price}}</td>
+      <td>{{i.quantity}}</td>
+      <td>{{i.final_price}}</td>
+      <td>{{i.link}}</td>
+      <td> <a href="{%url 'update_product' i.id %}" class="btn btn-success" type="submit">Изменить</a></td>
+      <td> <a href="{%url 'delete_product' i.id %}" class="btn btn-danger" type="submit">Удалить</a></td>
+    </tr>
+          {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
+

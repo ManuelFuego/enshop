@@ -1,0 +1,16 @@
+{% extends "eshop/baseshop.html" %}
+
+
+{%block content%}
+<div class="form-group">
+<form method="post">
+    <h1>Подтвердите удаление </h1>
+    <br>
+    <br>
+
+        {% csrf_token %}
+   <p> <h3>{{object}}</h3></p>
+<button class="btn btn-danger" type="submit">Удалить</button>
+</form>
+</div>
+{% endblock %}

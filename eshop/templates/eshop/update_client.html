@@ -1,0 +1,14 @@
+{% extends "eshop/baseshop.html" %}
+
+{%block content%}
+<div class="form-group">
+<h1>Редактирование данных клиента</h1>
+    <form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+<button class="btn btn-success" type="submit">Подтвердить</button>
+
+</form>
+</div>
+{% endblock %}
+
