@@ -71,9 +71,6 @@ class OrderForm(ModelForm):
             'status': forms.Select(attrs={'class': 'form-control'}),
             'buying_type': forms.Select(attrs={'class': 'form-control'}),
             'comment': forms.Textarea(attrs={'cols': 30, 'rows': 1, 'class': 'form-control'}),
-            #'created_at': forms.DateTimeField(attrs={'class':'form-control'}),
-            #'created_at': forms.DateTimeField(input_formats="%Y-%m-%d %H:%M:%S",),
-            #'created_at': forms.DateTimeField(required=True,label="Дата оформления заказа",widget=Calendar),
             'order_date': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
         }
 class OrderView(ModelForm):
