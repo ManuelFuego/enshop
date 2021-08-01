@@ -1,10 +1,46 @@
 {% extends "eshop/baseshop.html" %}
-
+<comment> Страница мониоринга </comment>
 {% block content %}
 
+<div class="card">
+  <div class="card-header">
+      <h4>Количество клиентов</h4>
+  </div>
+  <div class="card-body">
+    <blockquote class="blockquote mb-0">
+      <p> {{all_clients }}</p>
+    </blockquote>
+  </div>
+</div>
+<div class="card">
+  <div class="card-header">
+      <h4>Количество товаров</h4>
+  </div>
+  <div class="card-body">
+    <blockquote class="blockquote mb-0">
+      <p> {{all_prods }}</p>
+    </blockquote>
+  </div>
+</div>
+<div class="card">
+  <div class="card-header">
+      <h4>Общая стоимость</h4>
+  </div>
+  <div class="card-body">
+    <blockquote class="blockquote mb-0">
+      <p> {{full_price}}</p>
+    </blockquote>
+  </div>
+</div>
 
-<h1> main page </h1>
-{% for p in object_list %}
-    {{p}}
-{% endfor%}
+<div class="card">
+  <div class="card-header">
+      <h4> Количество заказов </h4>
+  </div>
+  <div class="card-body">
+      <p> {{full_orders}}</p>
+      <a href="{%url 'orders_list'%}" class="btn btn-primary">К списку заказов</a>
+  </div>
+</div>
+
 {% endblock %}

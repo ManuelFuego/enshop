@@ -1,14 +1,22 @@
 from django.shortcuts import render, get_object_or_404
 from .forms import *
 from .models import *
-from django.db.models import Q
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.db.models import Q, Count, Sum
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView,DetailView
+import re
 
+def Monitor(request):
+    all_prods = Product.objects.all().count()
+    full_price = Product.objects.aggregate(Sum("final_price"))
+    full_price = [i for i in full_price.values()]
+    summ = re.findall('\d+',str(full_price))
+    all_clients = Client.objects.all().count()
+    full_orders = Order.objects.all().count()
 
-class ProductHome(ListView):
-    ''' мониторинг состояния заказов '''
-    model = Product
-    template_name = 'eshop/index.html'
+    return render(request, template_name='eshop/index.html', context={"all_clients": all_clients,
+                                                                      "all_prods": all_prods,
+                                                                      "full_price": int(summ[0]),
+                                                                      "full_orders": full_orders, })
 
 
 class CreateProduct(CreateView):
@@ -39,6 +47,7 @@ def balance(request):
     else:
         info = Product.objects.all().order_by("category")
     form = PriceFilter(request.GET)
+
     if form.is_valid():
         if form.cleaned_data["min_price"]:
             info = info.filter(final_price__gte=form.cleaned_data["min_price"])
@@ -65,18 +74,34 @@ class UpdateClient(UpdateView):
     success_url = '/eshop/add_client'
 
 
-
 class DeleteClient(DeleteView):
     model = Client
     form_class = AddClient
     template_name = 'eshop/delete_client.html'
     success_url = '/eshop/add_client'
 
+class CreateOrder(CreateView):
+    model = Order
+    template_name = 'eshop/order.html'
+    form_class = OrderForm
+    success_url = '/eshop/order'
+
+def orders_list(request):
+    orders = Order.objects.all()
+    return render(request, 'eshop/orders_list.html', context={'orders': orders})
 
 
-def createOrder(request):
-    form = OrderForm()
-    if request.method == 'POST':
-        print("print:", request.POST)
-    context = {"form": form}
-    return render(request, 'eshop/order.html', context)
+class UpdateOrder(UpdateView):
+    model = Order
+    form_class = OrderForm
+    template_name = 'eshop/update_order.html'
+    success_url = '/eshop/orders_list'
+
+
+class DeleteOrder(DeleteView):
+    model = Order
+    form_class = OrderForm
+    template_name = 'eshop/delete_order.html'
+    success_url = '/eshop/orders_list'
+
+
