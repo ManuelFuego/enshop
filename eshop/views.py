@@ -12,13 +12,10 @@ def Monitor(request):
     summ = re.findall('\d+',str(full_price))
     all_clients = Client.objects.all().count()
     full_orders = Order.objects.all().count()
-
     return render(request, template_name='eshop/index.html', context={"all_clients": all_clients,
                                                                       "all_prods": all_prods,
                                                                       "full_price": int(summ[0]),
                                                                       "full_orders": full_orders, })
-
-
 class CreateProduct(CreateView):
     model = Product
     template_name = 'eshop/create_product.html'
@@ -53,6 +50,15 @@ def balance(request):
             info = info.filter(final_price__gte=form.cleaned_data["min_price"])
         if form.cleaned_data["max_price"]:
             info = info.filter(final_price__lte=form.cleaned_data["max_price"])
+
+    '''
+    придумать как обраиться к соответсвующему продукту по  id
+    boot_qt = Product.objects.get(id=1)
+    order_qt = Order.objects.get(id=9)
+    balance = boot_qt.quantity - order_qt.total_products
+    boot_qt = balance
+    boot_qt.save()
+    '''
     return render(request, 'eshop/balance.html', context={'info': info, 'form': form})
 
 
@@ -85,11 +91,21 @@ class CreateOrder(CreateView):
     template_name = 'eshop/order.html'
     form_class = OrderForm
     success_url = '/eshop/order'
-
+'''
+    def get_context_data(self, **kwargs):
+        prod = Product.objects.get(id)
+        ordr = Order.objects.get(id)
+        balance = prod.quantity - ordr.total_products
+        prod = balance.save()
+'''
 def orders_list(request):
     orders = Order.objects.all()
     return render(request, 'eshop/orders_list.html', context={'orders': orders})
 
+def ClientOrdersList(request,pk):
+    object_list  = Order.objects.filter(customer__id=pk)
+    template_name = 'eshop/client_orders_list.html'
+    return render(request,template_name, context={'object_list':object_list})
 
 class UpdateOrder(UpdateView):
     model = Order

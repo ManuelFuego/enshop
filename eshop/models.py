@@ -51,22 +51,9 @@ class Client(models.Model):
     def get_absolute_url(self):
         return f'eshop/{self.id}'
 
-    '''
-class ShopCart(models.Model):
-    """корзина товаров"""
-    owner = models.ForeignKey(Client, null=True, verbose_name='Владелец', on_delete=models.CASCADE)
-    products = models.ForeignKey(Product,verbose_name="Товар", on_delete=models.CASCADE)
-    total_products = models.ForeignKey(Product, verbose_name='Количество', on_delete=models.CASCADE, default=0,
-                                       related_name='total_balance')
-    price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Цена', blank=False)
-    final_price = models.DecimalField(max_digits=9, default=0, decimal_places=2, verbose_name='Общая цена')
-    in_order = models.BooleanField(default=False)
-
-    def __str__(self):
-        return str(self.id)
-    '''
-    # cart = в модели ордер models.ForeignKey(ShopCart, verbose_name='Корзина', on_delete=models.CASCADE, null=True, blank=True)
-
+class ClientManager(models.Manager):
+    def get_queryset(self):
+        return super
 
 class Order(models.Model):
     ''' заказ '''
@@ -120,3 +107,13 @@ class Order(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+'''
+def set_balance():
+    boot_qt = Product.objects.get(id=1)
+    order_qt = Order.objects.get(id=9)
+    balance = boot_qt.quantity - order_qt.total_products
+    boot_qt = balance
+    boot_qt.save()
+
+'''
