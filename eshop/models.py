@@ -1,11 +1,8 @@
 from django.db import models
 from django.utils import timezone
-
-
 class Category(models.Model):
     '''категория'''
     name = models.CharField(max_length=100, verbose_name='Название категории')
-
     # slug = models.SlugField(max_length=150, unique=True,db_index=True, verbose_name='URL')
     def __str__(self):
         return self.name
@@ -59,14 +56,12 @@ class Order(models.Model):
     ''' заказ '''
     STATUS_NEW = 'new'
     STATUS_IN_PROGRESS = 'in_progress'
-    STATUS_READY = 'is_ready'
     STATUS_COMPLETED = 'completed'
     BUYING_TYPE_SELF = 'self'
     BUYING_TYPE_DELIVERY = 'delivery'
     STATUS_CHOICES = (
         (STATUS_NEW, 'Новый заказ'),
         (STATUS_IN_PROGRESS, 'Заказ в обработке'),
-        (STATUS_READY, 'Заказ готов'),
         (STATUS_COMPLETED, 'Заказ выполнен')
     )
     BUYING_TYPE_CHOICES = (
@@ -107,13 +102,3 @@ class Order(models.Model):
 
     def __str__(self):
         return str(self.id)
-
-'''
-def set_balance():
-    boot_qt = Product.objects.get(id=1)
-    order_qt = Order.objects.get(id=9)
-    balance = boot_qt.quantity - order_qt.total_products
-    boot_qt = balance
-    boot_qt.save()
-
-'''

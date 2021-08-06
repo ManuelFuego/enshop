@@ -2,9 +2,16 @@
 
         {% block content %}
 <form action="" method="get" xmlns="http://www.w3.org/1999/html">
-  <p style="float :left ;"> <h4>Фильтр стоимости </h4></p>
-         {{form.as_table}}
-        <button class="btn btn-dark" type="submit">Поиск</button>
+  <p style="float :left ;"> <h4>Фильтр стоимости </h4>
+  <div class="row">
+    <div class="col-lg-9 col-md-5 col-sm-5 col-xs-5">
+        <div class="d-flex flex-row justify-content-between">
+    {% load crispy_forms_tags %}
+         {{form|crispy}}
+          <button class="btn btn-dark btn-lg" type="submit">Поиск</button>
+          </div>
+    </div>
+  </div>
 </form>
   <br>
 <table class="table table-dark table-hover">
