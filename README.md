@@ -2,7 +2,7 @@
 Установка (для пользователей операционных систем семейства MacOs/Linux):
 
 Открыть терминал или консоль и перейти в нужную Вам директорию
-Прописать команду git@github.com:Timenem/enshop.git
+Прописать команду :  git@github.com:Timenem/enshop.git
 
 Если Вы используете https, то: https://github.com/Timenem/enshop.git
 
