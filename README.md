@@ -1,19 +1,34 @@
 Репозиторий eshop 
-Установка (для пользователей операционных систем семейства MacOs/Linux):
+![](imgs/create.png)
+![](imgs/balance.png)
+![](imgs/client.png)
 
-Открыть терминал или консоль и перейти в нужную Вам директорию
-Прописать команду :  git@github.com:Timenem/enshop.git
 
-Если Вы используете https, то: https://github.com/Timenem/enshop.git
 
-Прописать следующие команды:
+### Выполнить последовательно команды в терминале 
 
-  1. virtualenv env ДиректорияВиртуальногоОкружения
-  2. source ДиректорияВиртуальногоОкружения/bin/activate
-     
-     Перейти в директорию eshop
-
-  3. pip install -r requirements.txt
-  4. python manage.py migrate
-
-Запустить сервер - python manage.py runserver
+1. Клонирование репозитория 
+```
+git clone https://github.com/Timenem/enshop.git
+```
+2. Создание вирутального окружения 
+```
+virtualenv env 
+```
+3. Активировать виртуальное окружение 
+```
+source env/bin/activate
+```
+4. Установка зависимостей 
+```
+pip install -r requirements.txt
+```
+5. Создание полей в бд
+```
+python manage.py makemigrations
+python manage.py migrate --run-syncdb
+```
+6. Запуск приложения 
+```
+python manage.py runserver
+```
