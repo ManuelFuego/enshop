@@ -1,7 +1,7 @@
 Репозиторий eshop 
-![](imgs/create.png)
-![](imgs/balance.png)
-![](imgs/client.png)
+![](images/create.png)
+![](images/balance.png)
+![](images/client.png)
 
 
 
